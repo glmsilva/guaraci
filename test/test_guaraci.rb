@@ -4,7 +4,7 @@ require_relative "test_helper"
 
 class TestGuaraci < Minitest::Test
   def test_that_it_has_a_version_number
-    refute_nil ::Guaraci::VERSION
+    refute_nil Guaraci::VERSION
   end
 
   def test_that_it_can_create_a_server
