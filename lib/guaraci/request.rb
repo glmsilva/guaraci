@@ -8,24 +8,24 @@ module Guaraci
 
     def initialize(raw_request)
       @method = raw_request.method
-      @path_segments = raw_request.path.split('/').reject(&:empty?)
+      @path_segments = raw_request.path&.split('/')&.reject(&:empty?)
       @raw_request = raw_request
     end
 
     def body
-      @body ||= raw_request.read
+      @body ||= raw_request&.read
     end
 
     def params
       JSON.parse(body)
-    rescue JSON::ParseError
+    rescue JSON::ParserError
       {}
     end
 
     def headers = raw_request.headers
 
     def query
-      raw_request.query || ""
+      raw_request&.query || ""
     end
 
     def query_params
@@ -35,7 +35,7 @@ module Guaraci
     private
 
     def parse_query
-      query.split('&').map { |q| q.split('=') }.to_a
+      query&.split('&').map { |q| q.split('=') }.to_a
     end
   end
 end
