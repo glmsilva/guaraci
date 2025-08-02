@@ -8,7 +8,7 @@ class TestGuaraci < Minitest::Test
   end
 
   def test_that_it_can_create_a_server
-    @server = Guaraci::Server.new do |req|
+    @server = Guaraci::Server.new do |_req|
       Guaraci::Response.ok
     end
 

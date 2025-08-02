@@ -1,14 +1,15 @@
-# frozen_string_literal
+# frozen_string_literal: true
 
-require 'json'
+require "json"
 
 module Guaraci
+  # This class is responsible for build the request object and its methods. Just like that :)
   class Request
     attr_reader :method, :path_segments, :raw_request
 
     def initialize(raw_request)
       @method = raw_request.method
-      @path_segments = raw_request.path&.split('/')&.reject(&:empty?)
+      @path_segments = raw_request.path&.split("/")&.reject(&:empty?)
       @raw_request = raw_request
     end
 
@@ -35,7 +36,7 @@ module Guaraci
     private
 
     def parse_query
-      query&.split('&').map { |q| q.split('=') }.to_a
+      query&.split("&")&.map { |q| q.split("=") }.to_a
     end
   end
 end
