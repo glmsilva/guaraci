@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative './request.rb'
+require_relative "./request"
 require "async"
 require "async/http/server"
 require "async/http/endpoint"
@@ -8,6 +8,7 @@ require "async/http/protocol/http1"
 require "json"
 
 module Guaraci
+  # This class is responsible to build and run the Async::HTTP server
   class Server
     def initialize(&block)
       @handler = block
@@ -19,7 +20,7 @@ module Guaraci
       instance_exec(request, &@handler)
     end
 
-    def self.run(host: 'localhost', port: 8000, &block)
+    def self.run(host: "localhost", port: 8000, &block)
       app = new(&block)
       url = "http://#{host}:#{port}"
 

@@ -4,5 +4,6 @@ require_relative "./guaraci/server"
 require_relative "./guaraci/response"
 require_relative "./guaraci/request"
 
+# This is the entrypoint for the framework to start
 module Guaraci
 end

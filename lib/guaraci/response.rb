@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
-require 'json'
+require "json"
 
 module Guaraci
+  # This class is responsible for build the response for the framework,
+  #  that need to return an array with status, header and body
+  #  like that ~> [200, {"Content-Type": "application/json"}, "{"message": "cool"}"]
   class Response
     attr_reader :status, :body, :headers
 
@@ -20,7 +23,7 @@ module Guaraci
 
     def json(object)
       @headers["Content-Type"] = "application/json"
-      @body = [JSON.dump((object))]
+      @body = [JSON.dump(object)]
     end
 
     def to_a
