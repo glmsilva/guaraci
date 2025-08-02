@@ -1,5 +1,8 @@
 # ☀️ Guaraci
 
+![Static Badge](https://img.shields.io/badge/rubygems-guaraci-brightgreen)
+![Static Badge](https://img.shields.io/badge/rubygems-v.0.1.0-red)
+
 [![Ruby](https://img.shields.io/badge/ruby-%3E%3D%203.4.0-red.svg)](https://ruby-lang.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
