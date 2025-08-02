@@ -1,39 +1,165 @@
-# Guaraci
+# ☀️ Guaraci
 
-TODO: Delete this and the text below, and describe your gem
+[![Ruby](https://img.shields.io/badge/ruby-%3E%3D%203.4.0-red.svg)](https://ruby-lang.org)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/guaraci`. To experiment with that code, run `bin/console` for an interactive prompt.
+Guaraci is very a simple Ruby web microframework built on top of the powerful [Async::HTTP](https://github.com/socketry/async-http).
+It was designed to be minimalist, providing a clean and intuitive API with as little overhead as possible.
+
+Its goal is to be minimalist, with a small codebase focused on simplicity, without the need to learn extensive DSLs like other frameworks; it only requires plain Ruby.
+
+## Features
+
+- **High performance** - Powered by Async::HTTP for non-blocking concurrency
+- **Flexible** - Easy to extend and customize
+- **Lightweight** - Few dependencies
 
 ## Installation
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
+In your gemfiile:
 
-Install the gem and add to the application's Gemfile by executing:
-
-```bash
-bundle add UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+```ruby
+gem 'guaraci'
 ```
 
-If bundler is not being used to manage dependencies, install the gem by executing:
+And run:
 
 ```bash
-gem install UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+bundle install
 ```
 
-## Usage
+Or:
 
-TODO: Write usage instructions here
+```bash
+gem install guaraci
+```
+
+## How to use
+
+### Hello World
+
+```ruby
+require 'guaraci'
+
+Guaraci::Server.run(port: 3000) do |request|
+  response = Guaraci::Response.ok
+  response.json({ message: "Hello, World!" })
+  response
+end
+```
+
+### Routing
+A little about routing first: I decided to keep the code simple, so no routing dsl and constructors were built. Why? The ideia is to use plain ruby, without the need to learn another DSL apart ruby itself, like rails, sinatra, roda, etc.
+
+I REALLY recommend you to use the new pattern matching feature that comes with Ruby 3.x by default.
+
+```ruby
+require 'guaraci'
+
+Guaraci::Server.run(host: 'localhost', port: 8000) do |request|
+  case [request.method, request.path_segments]
+  in ['GET', []]
+    handle_api_request(request)
+  in ['GET', ['health']]
+    health_check
+  else
+    not_found
+  end
+end
+
+def handle_api_request(request)
+  response = Guaraci::Response.ok
+  response.json({
+    method: request.method,
+    path: request.path_segments,
+    params: request.params,
+    timestamp: Time.now.iso8601
+  })
+  response.to_a
+
+##  Or you can pass a block like this
+#
+#   Guaraci::Response.ok do |res|
+#     res.json({
+#       method: request.method,
+#       path: request.path_segments,
+#       params: request.params,
+#       timestamp: Time.now.iso8601
+#      })
+#   end.to_a
+end
+
+def health_check
+  response = Guaraci::Response.ok
+  response.json({ status: 'healthy', uptime: Process.clock_gettime(Process::CLOCK_MONOTONIC) })
+  response
+
+## Or you can pass a block like this
+#
+#   Guaraci::Response.ok do |res|
+#     res.json({
+#       status: 'healthy',
+#       uptime: Process.clock_gettime(Process::CLOCK_MONOTONIC)
+#     })
+#   end
+end
+
+def not_found
+  response = Guaraci::Response.new(404)
+  response.json({ error: 'Not Found' })
+  response
+end
+
+```
+
+## Examples
+
+You can see more examples on how to build guaraci apps inside [Examples](https://github.com/glmsilva/guaraci/tree/main/examples) folder
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+Clone the repository:
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+1. Execute `bin/setup` to install dependencies
+2. Execute `rake test` to run tests
+3. Execute `bin/console` for an interactive prompt
 
-## Contributing
+### Tests
+Its the plain and old minitest :)
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/guaraci.
+```bash
+rake test
 
-## License
+ruby test/guaraci/test_request.rb
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+bundle exec rubocop
+```
+
+## Inspiration
+### Why this name?
+
+In **Tupi-Guarani** indigenous culture, Guaraci (_Guaracy_ or _Kûarasy_) is the solar deity associated with the origin of life. As a central figure in indigenous mythology, and son of **Tupã**, Guaraci embodies the power of the sun, is credited with giving rise to all living beings, and protector of the hunters.
+
+Its also a word that can be translated to "Sun" in Tupi-Guarani language.
+
+## Roadmap
+
+- [ ] Integrated pipeline Middleware
+- [ ] Templates support
+- [ ] WebSocket support
+- [ ] Streaming responses
+- [ ] A better documentation
+- [ ] More examples on how to use it
+- [ ] Performance benchmark
+
+## Acknowledgements
+
+- [Async::HTTP](https://github.com/socketry/async-http) - The powerful asynchronous base of this project
+- [Wisp](https://github.com/gleam-wisp/wisp) - The great framework that I enjoyed using so much and that inspired the philosophy behind building this one
+
+## 📄 License
+ [MIT License](https://opensource.org/licenses/MIT).
+
+---
+
+Thank you so much, feel free to contact me ☀️ [Guilherme Silva](https://github.com/glmsilva)
