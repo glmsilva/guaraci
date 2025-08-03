@@ -5,14 +5,12 @@ require_relative "../test_helper"
 module Guaraci
   class TestServerCall < Minitest::Test
     def setup
-      @server = Guaraci::Server.new do |request|
-        response = Guaraci::Response.ok
-        response.json({ message: "test" })
-        response
+      @server = Guaraci::Server.new do |_request|
+        Guaraci::Response.ok { |res| res.json({ message: "test" }) }
       end
 
       @mock_request = Minitest::Mock.new
-      
+
       @mock_request.expect(:read, "")
       @mock_request.expect(:method, "GET")
       @mock_request.expect(:path, "/mock/api")
@@ -22,7 +20,7 @@ module Guaraci
 
     def test_call_returns_response_object
       result = @server.call(@mock_request)
-      
+
       assert_kind_of Guaraci::Response, result
       assert_equal 200, result.status
       assert_kind_of Protocol::HTTP::Headers, result.headers

@@ -28,7 +28,7 @@ module Guaraci
     # @example
     #   request.method #=> "GET"
     attr_reader :method
-    
+
     # The path segments extracted from the request URL.
     #
     # The path is automatically split by "/" and empty segments are removed.
@@ -50,7 +50,7 @@ module Guaraci
     #     # post_id automatically captured from URL
     #   end
     attr_reader :path_segments
-    
+
     # The original request object from the HTTP server.
     #
     # This provides access to the underlying request implementation when you need
@@ -58,7 +58,7 @@ module Guaraci
     # Use this when you need to access protocol-specific features.
     #
     # @return [Object] The original request object from Async::HTTP
-    # @see https://github.com/socketry/async-http/blob/main/lib/async/http/protocol/request.rb Async::HTTP request structure
+    # @see https://github.com/socketry/async-http/blob/main/lib/async/http/protocol/request.rb
     # @example
     #   request.raw_request.version #=> "HTTP/1.1"
     #   request.raw_request.scheme  #=> "http"

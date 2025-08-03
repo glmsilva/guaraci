@@ -33,7 +33,7 @@ module Guaraci
   # @since 1.0.0
   class Response
     # The HTTP status code for this response.
-    # 
+    #
     # Common status codes:
     # - 200: OK (successful request)
     # - 201: Created (resource created successfully)
@@ -46,9 +46,9 @@ module Guaraci
     # @example
     #   response.status #=> 200
     attr_reader :status
-    
+
     # The HTTP response body containing the actual content.
-    # 
+    #
     # The body is automatically converted to {Protocol::HTTP::Body::Buffered}
     # format when content is written using {#write}, {#json}, {#html}, or {#text}.
     # This ensures compatibility with Async::HTTP's streaming requirements.
@@ -58,9 +58,9 @@ module Guaraci
     # @example
     #   response.body.read #=> '{"message":"Hello World"}'
     attr_reader :body
-    
+
     # The HTTP response headers collection.
-    # 
+    #
     # Headers are stored as {Protocol::HTTP::Headers} objects
     #
     # @return [Protocol::HTTP::Headers] HTTP response headers
@@ -78,7 +78,7 @@ module Guaraci
     #
     # @param status [Integer] HTTP status code
     # @raise [ArgumentError] if status is not a valid HTTP status code
-    # 
+    #
     # @example Creating different response types
     #   success = Guaraci::Response.new(200)    # OK
     #   not_found = Guaraci::Response.new(404)  # Not Found
@@ -102,7 +102,7 @@ module Guaraci
     # @yield [response] Block to configure the response content and headers
     # @yieldparam response [Response] The response instance to configure
     # @return [Response] The configured response instance with status 200
-    # 
+    #
     # @example Without block (empty 200 response)
     #   response = Guaraci::Response.ok
     #   response.status #=> 200

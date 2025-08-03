@@ -12,20 +12,20 @@ module Guaraci
 
     def test_that_body_is_created
       @response = Response.ok
-      @response.json({message: "Hello, world!"}).to_json
+      @response.json({ message: "Hello, world!" }).to_json
 
-      assert @response.body.read.is_a? String 
+      assert @response.body.read.is_a? String
     end
 
     def test_that_header_is_created
-      @response = Response.ok { |res| res.html("<h1>Hello, world!</h1>")}
+      @response = Response.ok { |res| res.html("<h1>Hello, world!</h1>") }
 
       assert @response.headers.is_a? Object
       assert_equal @response.headers["content-type"], "text/html"
     end
 
     def test_that_render_return_a_valid_async_http_response
-      @response = Response.ok { |res| res.json({message: "Hello, world!"})}
+      @response = Response.ok { |res| res.json({ message: "Hello, world!" }) }
 
       assert_instance_of Protocol::HTTP::Response, @response.render
     end
