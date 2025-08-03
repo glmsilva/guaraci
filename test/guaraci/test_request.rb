@@ -35,7 +35,7 @@ module Guaraci
       empty_mock.expect(:read, "")
       empty_mock.expect(:method, "get")
       empty_mock.expect(:path, "/mock/api")
-      empty_mock.expect(:query_string, "")
+      empty_mock.expect(:query, "")
 
       object = Guaraci::Request.new(empty_mock)
 
