@@ -1,7 +1,7 @@
 # ☀️ Guaraci
 
 [![Static Badge](https://img.shields.io/badge/rubygems-guaraci-brightgreen)](https://rubygems.org/gems/guaraci)
-[![Gem Version](https://badge.fury.io/rb/guaraci.svg)](https://badge.fury.io/rb/guaraci)
+[![Gem Version](https://badge.fury.io/rb/guaraci.svg?icon=si%3Arubygems)](https://badge.fury.io/rb/guaraci)
 
 [![Ruby](https://img.shields.io/badge/ruby-%3E%3D%203.4.0-red.svg)](https://ruby-lang.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
