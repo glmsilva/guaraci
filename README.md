@@ -47,7 +47,7 @@ require 'guaraci'
 Guaraci::Server.run(port: 3000) do |request|
   response = Guaraci::Response.ok
   response.json({ message: "Hello, World!" })
-  response
+  response.render
 end
 ```
 
@@ -78,7 +78,7 @@ def handle_api_request(request)
     params: request.params,
     timestamp: Time.now.iso8601
   })
-  response.to_a
+  response.render
 
 ##  Or you can pass a block like this
 #
@@ -95,7 +95,7 @@ end
 def health_check
   response = Guaraci::Response.ok
   response.json({ status: 'healthy', uptime: Process.clock_gettime(Process::CLOCK_MONOTONIC) })
-  response
+  response.render
 
 ## Or you can pass a block like this
 #
@@ -110,7 +110,7 @@ end
 def not_found
   response = Guaraci::Response.new(404)
   response.json({ error: 'Not Found' })
-  response
+  response.render
 end
 
 ```
